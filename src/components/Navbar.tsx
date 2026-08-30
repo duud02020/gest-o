@@ -10,7 +10,7 @@ export function Navbar() {
   return (
     <nav className="navbar animate-fade-in">
       <div className="container">
-        <Link href="/" className="logo gradient-text">Loja Moderna</Link>
+        <Link href="/store" className="logo gradient-text">Loja Moderna</Link>
         <div className="nav-links">
           <Link href="/login" className="nav-link">Entrar</Link>
           <Link href="/cart" className="btn-primary">

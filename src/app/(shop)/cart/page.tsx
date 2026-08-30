@@ -19,7 +19,7 @@ export default function CartPage() {
           <p style={{ color: "var(--text-secondary)", marginBottom: "24px" }}>
             Volte para a vitrine e escolha alguns produtos incríveis.
           </p>
-          <Link href="/" className="btn-primary">
+          <Link href="/store" className="btn-primary">
             Voltar para a Vitrine
           </Link>
         </div>

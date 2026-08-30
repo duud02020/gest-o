@@ -23,7 +23,7 @@ export default function CheckoutPage() {
           <p style={{ color: "var(--text-secondary)", marginBottom: "32px" }}>
             Obrigado por comprar conosco. Seu pedido foi processado com sucesso.
           </p>
-          <Link href="/" className="btn-primary">
+          <Link href="/store" className="btn-primary">
             Voltar para a Loja
           </Link>
         </div>
@@ -35,7 +35,7 @@ export default function CheckoutPage() {
     return (
       <div className="container" style={{ padding: "40px 24px", textAlign: "center" }}>
         <h2>Seu carrinho está vazio.</h2>
-        <Link href="/" className="btn-primary" style={{ marginTop: "24px" }}>Voltar</Link>
+        <Link href="/store" className="btn-primary" style={{ marginTop: "24px" }}>Voltar</Link>
       </div>
     );
   }
