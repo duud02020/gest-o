@@ -3,8 +3,8 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
-  title: "Loja Moderna - Login",
-  description: "Acesse sua conta",
+  title: "ShopNova",
+  description: "Descubra produtos incríveis na ShopNova",
 };
 
 export default function RootLayout({
