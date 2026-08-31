@@ -9,17 +9,19 @@ export function Navbar() {
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <nav className="navbar animate-fade-in">
-      <div className="container">
-        <Link href="/store" className="logo gradient-text">ShopNova</Link>
-        <div className="nav-links">
-          <Link href="/login" className="nav-link">Entrar</Link>
-          <Link href="/cart" className="btn-primary">
-            Carrinho ({itemCount})
-          </Link>
+    <>
+      <nav className="navbar animate-fade-in">
+        <div className="container">
+          <Link href="/store" className="logo gradient-text">ShopNova</Link>
+          <div className="nav-links">
+            <Link href="/login" className="nav-link">Entrar</Link>
+            <Link href="/cart" className="btn-primary">
+              Carrinho ({itemCount})
+            </Link>
+          </div>
         </div>
-      </div>
-    </nav>
-    <ToastContainer />
+      </nav>
+      <ToastContainer />
+    </>
   );
 }
