@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { products } from "@/data/products";
+import { useProducts } from "@/context/ProductContext";
 import BenefitsBar from "@/components/BenefitsBar";
 import ProductCard from "@/components/ProductCard";
 
 export default function StorePage() {
+  const { products } = useProducts();
   const [search, setSearch] = useState("");
 
   const filtered = products.filter((p) =>
