@@ -5,13 +5,17 @@ import { CartProvider } from "@/context/CartContext";
 import { ProductProvider } from "@/context/ProductContext";
 import { OrderProvider } from "@/context/OrderContext";
 
+import { AuthProvider } from "@/context/AuthContext";
+
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <ProductProvider>
-      <OrderProvider>
-        <CartProvider>{children}</CartProvider>
-      </OrderProvider>
-    </ProductProvider>
+    <AuthProvider>
+      <ProductProvider>
+        <OrderProvider>
+          <CartProvider>{children}</CartProvider>
+        </OrderProvider>
+      </ProductProvider>
+    </AuthProvider>
   );
 }
 

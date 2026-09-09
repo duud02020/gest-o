@@ -2,20 +2,30 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [role, setRole] = useState<"comprador" | "vendedor">("comprador");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const { login } = useAuth();
   const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const effectiveEmail = email.trim() || (role === "vendedor" ? "admin@shopnova.com" : "cliente@exemplo.com");
+    const effectiveName = name.trim() || (role === "vendedor" ? "Gestor ShopNova" : "Cliente");
+    
+    login(role, effectiveEmail, effectiveName);
+
     if (role === "vendedor") {
       router.push("/gestao");
     } else {
       router.push("/store");
     }
   };
+
 
   return (
     <>
@@ -112,6 +122,8 @@ export default function AuthPage() {
                   <input
                     type="text"
                     placeholder={role === "vendedor" ? "NOME DA LOJA / RESPONSÁVEL" : "SEU NOME COMPLETO"}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     required={!isLogin}
                     style={styles.input}
                   />
@@ -124,7 +136,8 @@ export default function AuthPage() {
                 <input
                   type="email"
                   placeholder="E‑MAIL"
-                  defaultValue={role === "vendedor" ? "admin@shopnova.com" : "cliente@exemplo.com"}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   style={styles.input}
                 />

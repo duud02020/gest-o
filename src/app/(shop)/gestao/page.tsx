@@ -13,6 +13,8 @@ import { CouponsView } from "@/components/gestao/CouponsView";
 import { AnalyticsView } from "@/components/gestao/AnalyticsView";
 import { SettingsView } from "@/components/gestao/SettingsView";
 
+import { useAuth } from "@/context/AuthContext";
+
 export type GestaoTab =
   | "dashboard"
   | "products"
@@ -26,13 +28,54 @@ export default function GestaoPage() {
   const [activeTab, setActiveTab] = useState<GestaoTab>("dashboard");
   const { products } = useProducts();
   const { orders } = useOrders();
+  const { user, isHydrated } = useAuth();
 
   const lowStockCount = products.filter(
     (p) => (p.stock !== undefined ? p.stock <= 5 : false)
   ).length;
 
+  // Bloqueio de Acesso para Comprador
+  if (isHydrated && user?.role === "comprador") {
+    return (
+      <div className="container flex-center" style={{ minHeight: "75vh", padding: "40px 24px" }}>
+        <div
+          className="card animate-fade-in"
+          style={{
+            padding: "48px 36px",
+            textAlign: "center",
+            maxWidth: "540px",
+            background: "var(--bg-secondary)",
+            border: "1px solid rgba(239, 68, 68, 0.3)",
+            boxShadow: "0 20px 50px rgba(0,0,0,0.6)",
+          }}
+        >
+          <div style={{ fontSize: "4.5rem", marginBottom: "16px" }}>🚫</div>
+          <h1 style={{ fontSize: "1.8rem", fontWeight: 800, color: "#f87171", marginBottom: "12px" }}>
+            Acesso Restrito à Gestão
+          </h1>
+          <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: "1.6", marginBottom: "28px" }}>
+            Você está conectado como <strong>Comprador</strong> ({user.email}). O módulo de Gestão e Administração é exclusivo para lojistas e vendedores da ShopNova.
+          </p>
+          <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
+            <Link href="/store" className="btn-primary" style={{ padding: "12px 24px" }}>
+              🛍️ Ir para a Loja
+            </Link>
+            <Link
+              href="/login"
+              className="btn-secondary"
+              style={{ padding: "12px 24px", borderColor: "rgba(255,255,255,0.15)" }}
+            >
+              🔄 Trocar de Conta (Vendedor)
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{ display: "flex", minHeight: "calc(100vh - 75px)", background: "var(--bg-primary)" }}>
+
       {/* Sidebar de Gestão */}
       <aside
         style={{
