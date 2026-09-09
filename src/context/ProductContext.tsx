@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { Product } from "@/data/products";
+import { Product, INITIAL_PRODUCTS } from "@/data/products";
 
 interface ProductContextType {
   products: Product[];
@@ -13,20 +13,29 @@ interface ProductContextType {
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export function ProductProvider({ children }: { children: ReactNode }) {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("shopnova_products");
     if (saved) {
       try {
-        setProducts(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setProducts(parsed);
+        } else {
+          setProducts(INITIAL_PRODUCTS);
+        }
       } catch (e) {
         console.error("Failed to parse products from local storage", e);
+        setProducts(INITIAL_PRODUCTS);
       }
+    } else {
+      setProducts(INITIAL_PRODUCTS);
     }
     setIsHydrated(true);
   }, []);
+
 
   useEffect(() => {
     if (isHydrated) {

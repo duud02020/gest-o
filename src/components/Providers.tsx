@@ -3,11 +3,15 @@
 import { ReactNode } from "react";
 import { CartProvider } from "@/context/CartContext";
 import { ProductProvider } from "@/context/ProductContext";
+import { OrderProvider } from "@/context/OrderContext";
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <ProductProvider>
-      <CartProvider>{children}</CartProvider>
+      <OrderProvider>
+        <CartProvider>{children}</CartProvider>
+      </OrderProvider>
     </ProductProvider>
   );
 }
+
