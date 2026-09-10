@@ -15,44 +15,17 @@ const styles = {
   } as React.CSSProperties,
 
   card: {
-    display: "flex",
-    width: "min(900px, 100%)",
-    height: "520px",
-    background: "#1a1d24",
-    borderRadius: "20px",
-    boxShadow: "0 25px 60px rgba(0,0,0,0.6)",
-    overflow: "hidden",
-    position: "relative",
+    // Moved to .auth-card in globals.css
   } as React.CSSProperties,
 
   leftPanel: (isLogin: boolean) => ({
-    width: "42%",
-    background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
-    color: "white",
-    padding: "48px 40px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    position: "absolute",
-    height: "100%",
+    // Other properties moved to .auth-left
     left: isLogin ? "0%" : "58%",
-    transition: "left 0.55s cubic-bezier(0.77,0,0.175,1)",
-    zIndex: 10,
   } as React.CSSProperties),
 
   rightPanel: (isLogin: boolean) => ({
-    width: "58%",
-    padding: "48px 56px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    position: "absolute",
-    height: "100%",
+    // Other properties moved to .auth-right
     left: isLogin ? "42%" : "0%",
-    transition: "left 0.55s cubic-bezier(0.77,0,0.175,1)",
-    background: "#1a1d24",
   } as React.CSSProperties),
 
   icon: {
@@ -157,10 +130,10 @@ export default function AuthPage() {
         rel="stylesheet"
       />
       <div style={styles.page}>
-        <div style={styles.card}>
+        <div className="auth-card">
 
           {/* Painel Esquerdo - Temático */}
-          <div style={styles.leftPanel(isLogin)}>
+          <div className="auth-left" style={styles.leftPanel(isLogin)}>
             <div style={styles.icon}>🛍️</div>
             <h2 style={styles.leftTitle}>
               {isLogin ? "Novo por aqui?" : "Bem‑vindo de volta!"}
@@ -187,7 +160,7 @@ export default function AuthPage() {
           </div>
 
           {/* Painel Direito - Formulário */}
-          <div style={styles.rightPanel(isLogin)}>
+          <div className="auth-right" style={styles.rightPanel(isLogin)}>
             <h2 style={styles.formTitle}>
               {isLogin ? "ACESSE SUA CONTA" : "CRIE SUA CONTA"}
             </h2>
