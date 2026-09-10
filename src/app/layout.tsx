@@ -1,10 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
-  title: "ShopNova",
-  description: "Descubra produtos incríveis na ShopNova",
+  title: "ShopNova – Eletrônicos e Tecnologia",
+  description: "Compre smartphones, notebooks, fones e mais com frete grátis e parcelamento em até 12x.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
