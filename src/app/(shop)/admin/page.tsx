@@ -10,9 +10,9 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
 
   return (
-    <div style={{ display: "flex", minHeight: "calc(100vh - 80px)", background: "var(--bg-primary)" }}>
+    <div className="admin-layout" style={{ display: "flex", minHeight: "calc(100vh - 80px)", background: "var(--bg-primary)" }}>
       {/* Sidebar */}
-      <aside style={{ width: "260px", background: "var(--bg-secondary)", borderRight: "1px solid rgba(255,255,255,0.05)", padding: "32px 16px" }}>
+      <aside className="admin-sidebar" style={{ width: "260px", background: "var(--bg-secondary)", borderRight: "1px solid rgba(255,255,255,0.05)", padding: "32px 16px" }}>
         <h2 className="gradient-text" style={{ fontSize: "1.5rem", marginBottom: "32px", paddingLeft: "12px" }}>Painel Admin</h2>
         
         <nav style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -23,7 +23,7 @@ export default function AdminPage() {
       </aside>
 
       {/* Main Content */}
-      <main style={{ flex: 1, padding: "40px 48px", overflowY: "auto" }}>
+      <main className="admin-main" style={{ flex: 1, padding: "40px 48px", overflowY: "auto" }}>
         {activeTab === "dashboard" && <DashboardTab />}
         {activeTab === "products" && <ProductsTab />}
         {activeTab === "ai" && <AiTab />}
@@ -76,7 +76,7 @@ function DashboardTab() {
         <p style={{ color: "var(--text-secondary)" }}>Acompanhe o desempenho da sua loja hoje.</p>
       </header>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px", marginBottom: "40px" }}>
+      <div className="admin-dashboard-cards">
         <StatCard title="Faturamento Bruto" value={mockRevenue} subtitle="+12% que ontem" color="#10b981" />
         <StatCard title="Pedidos Realizados" value={mockOrders.toString()} subtitle="8 pedidos aguardando pagamento" color="#6366f1" />
         <StatCard title="Visitantes Únicos" value={mockVisits} subtitle="Pico às 14:00" color="#f59e0b" />
@@ -116,7 +116,7 @@ function AiTab() {
         <p style={{ color: "var(--text-secondary)" }}>Descubra insights ocultos nos seus dados através de Inteligência Artificial.</p>
       </header>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+      <div className="admin-ai-grid">
         
         {/* Painel de Insights */}
         <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -229,7 +229,7 @@ function ProductsTab() {
         <p style={{ color: "var(--text-secondary)" }}>Adicione, edite ou remova produtos do seu catálogo.</p>
       </header>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "40px", alignItems: "start" }}>
+      <div className="admin-products-grid">
         {/* Formulário */}
         <div className="card" style={{ padding: "24px", background: "var(--bg-secondary)" }}>
           <h2 style={{ marginBottom: "20px", fontSize: "1.2rem" }}>

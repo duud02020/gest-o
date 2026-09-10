@@ -24,7 +24,7 @@ export default function CartPage() {
           </Link>
         </div>
       ) : (
-        <div className="grid-auto" style={{ gridTemplateColumns: "1fr 350px", gap: "32px", alignItems: "start" }}>
+        <div className="grid-responsive-2 cart-layout" style={{ alignItems: "start" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             {items.map((item) => (
               <div key={item.id} className="card animate-fade-in" style={{ padding: "20px", display: "flex", alignItems: "center", gap: "20px" }}>

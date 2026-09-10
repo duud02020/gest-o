@@ -193,3 +193,81 @@ button {
 .animate-fade-in {
   animation: fadeIn 0.5s ease forwards;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+  
+  .navbar .container {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .nav-links {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* Helper class for 2-column layouts that should stack on mobile */
+  .grid-responsive-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* Admin Layout Responsiveness */
+  .admin-layout {
+    flex-direction: column !important;
+  }
+  
+  .admin-sidebar {
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .admin-main {
+    padding: 24px 16px !important;
+  }
+  
+  .admin-dashboard-cards {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .admin-products-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .admin-ai-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Desktop variants of responsive grids (when not overridden by media query) */
+@media (min-width: 769px) {
+  .grid-responsive-2.cart-layout {
+    grid-template-columns: 1fr 350px;
+  }
+  .grid-responsive-2.checkout-layout {
+    grid-template-columns: 1fr 400px;
+  }
+  .admin-products-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .admin-dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .admin-ai-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}

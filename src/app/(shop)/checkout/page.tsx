@@ -46,7 +46,7 @@ export default function CheckoutPage() {
         Finalizar Compra
       </h1>
 
-      <div className="grid-auto" style={{ gridTemplateColumns: "1fr 400px", gap: "32px", alignItems: "start" }}>
+      <div className="grid-responsive-2 checkout-layout" style={{ alignItems: "start" }}>
         <form onSubmit={handleCheckout} className="card animate-fade-in" style={{ padding: "32px", display: "flex", flexDirection: "column", gap: "24px" }}>
           <h2 style={{ fontSize: "1.5rem" }}>Dados de Pagamento (Simulação)</h2>
           
