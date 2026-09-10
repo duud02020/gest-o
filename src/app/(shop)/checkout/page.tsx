@@ -1,15 +1,18 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
+import { useOrders } from "@/context/OrderContext";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function CheckoutPage() {
   const { items, total, clearCart } = useCart();
+  const { addOrder } = useOrders();
   const [isSuccess, setIsSuccess] = useState(false);
 
   const handleCheckout = (e: React.FormEvent) => {
     e.preventDefault();
+    addOrder(items, total);
     clearCart();
     setIsSuccess(true);
   };

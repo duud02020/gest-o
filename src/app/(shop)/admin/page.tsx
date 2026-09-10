@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useProducts } from "@/context/ProductContext";
+import { useOrders } from "@/context/OrderContext";
+import { useAnalytics } from "@/context/AnalyticsContext";
 import type { Product } from "@/data/products";
 
 type Tab = "dashboard" | "products" | "ai";
@@ -65,21 +67,23 @@ function SidebarButton({ active, onClick, icon, text }: { active: boolean, onCli
 
 function DashboardTab() {
   const { products } = useProducts();
-  const mockRevenue = "R$ 45.320,00";
-  const mockOrders = 124;
-  const mockVisits = "4.5k";
+  const { orders } = useOrders();
+  const { visits } = useAnalytics();
+  
+  const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0);
+  const formattedRevenue = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(totalRevenue);
 
   return (
     <div className="animate-fade-in">
       <header style={{ marginBottom: "32px" }}>
-        <h1 style={{ fontSize: "2rem", marginBottom: "8px" }}>Visão Geral</h1>
-        <p style={{ color: "var(--text-secondary)" }}>Acompanhe o desempenho da sua loja hoje.</p>
+        <h1 style={{ fontSize: "2rem", marginBottom: "8px" }}>Visão Geral (Dados Reais)</h1>
+        <p style={{ color: "var(--text-secondary)" }}>Acompanhe o desempenho da sua loja baseado em acessos e vendas reais.</p>
       </header>
 
       <div className="admin-dashboard-cards">
-        <StatCard title="Faturamento Bruto" value={mockRevenue} subtitle="+12% que ontem" color="#10b981" />
-        <StatCard title="Pedidos Realizados" value={mockOrders.toString()} subtitle="8 pedidos aguardando pagamento" color="#6366f1" />
-        <StatCard title="Visitantes Únicos" value={mockVisits} subtitle="Pico às 14:00" color="#f59e0b" />
+        <StatCard title="Faturamento Bruto" value={formattedRevenue} subtitle="Soma de todos os pedidos finalizados" color="#10b981" />
+        <StatCard title="Pedidos Realizados" value={orders.length.toString()} subtitle="Registrados via Checkout" color="#6366f1" />
+        <StatCard title="Visitantes (Acessos)" value={visits.toString()} subtitle="Contador real de sessões" color="#f59e0b" />
       </div>
 
       <div className="card" style={{ padding: "24px", background: "var(--bg-secondary)" }}>
@@ -104,16 +108,37 @@ function StatCard({ title, value, subtitle, color }: { title: string, value: str
 
 function AiTab() {
   const { products } = useProducts();
-  const mostExpensive = products.length > 0 ? [...products].sort((a, b) => b.price - a.price)[0].name : "Nenhum";
+  const { orders } = useOrders();
+
+  let aiInsightProduct = "Não há dados suficientes. Finalize uma compra no Checkout para eu analisar suas vendas reais!";
+  
+  if (orders.length > 0) {
+    const productCounts: Record<string, number> = {};
+    orders.forEach(order => {
+      order.items.forEach(item => {
+        productCounts[item.name] = (productCounts[item.name] || 0) + item.quantity;
+      });
+    });
+    
+    let maxCount = 0;
+    let mostSoldName = "";
+    for (const [name, count] of Object.entries(productCounts)) {
+      if (count > maxCount) {
+        maxCount = count;
+        mostSoldName = name;
+      }
+    }
+    aiInsightProduct = `Baseado nos seus ${orders.length} pedidos reais, notamos que o "${mostSoldName}" é o campeão com ${maxCount} vendas. Considere aumentar o preço dele levemente ou promovê-lo ainda mais!`;
+  }
 
   return (
     <div className="animate-fade-in">
       <header style={{ marginBottom: "32px" }}>
         <h1 style={{ fontSize: "2rem", marginBottom: "8px", display: "flex", alignItems: "center", gap: "12px" }}>
           <span>Inteligência Analítica</span>
-          <span style={{ fontSize: "0.8rem", background: "var(--accent)", color: "#fff", padding: "4px 8px", borderRadius: "12px" }}>BETA</span>
+          <span style={{ fontSize: "0.8rem", background: "var(--success)", color: "#fff", padding: "4px 8px", borderRadius: "12px" }}>REAL</span>
         </h1>
-        <p style={{ color: "var(--text-secondary)" }}>Descubra insights ocultos nos seus dados através de Inteligência Artificial.</p>
+        <p style={{ color: "var(--text-secondary)" }}>Meus relatórios agora são gerados baseados em compras e acessos reais da sua loja.</p>
       </header>
 
       <div className="admin-ai-grid">
@@ -122,8 +147,8 @@ function AiTab() {
         <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           <InsightCard 
             icon="🔥" 
-            title="Produto em Alta" 
-            text={`Simulamos que "${mostExpensive}" teve um aumento de 45% nas buscas nas últimas 24h. Considere colocá-lo na página inicial!`} 
+            title="Produto em Alta (Análise Real)" 
+            text={aiInsightProduct} 
           />
           <InsightCard 
             icon="⚠️" 
