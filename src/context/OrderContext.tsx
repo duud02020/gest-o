@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+<<<<<<< HEAD
 import {
   Order,
   OrderStatus,
@@ -28,10 +29,24 @@ interface CreateOrderInput {
   }[];
   total: number;
   paymentMethod: "Cartão de Crédito" | "PIX" | "Boleto";
+=======
+import type { Product } from "@/data/products";
+
+export interface OrderItem extends Product {
+  quantity: number;
+}
+
+export interface Order {
+  id: string;
+  date: string;
+  items: OrderItem[];
+  total: number;
+>>>>>>> 2e3ba7d78f21a50404ac62478f1cd891a842c69f
 }
 
 interface OrderContextType {
   orders: Order[];
+<<<<<<< HEAD
   customers: Customer[];
   coupons: Coupon[];
   createOrder: (input: CreateOrderInput) => Order;
@@ -40,11 +55,15 @@ interface OrderContextType {
   addCoupon: (coupon: Omit<Coupon, "id" | "usageCount">) => void;
   toggleCoupon: (id: string) => void;
   deleteCoupon: (id: string) => void;
+=======
+  addOrder: (items: OrderItem[], total: number) => void;
+>>>>>>> 2e3ba7d78f21a50404ac62478f1cd891a842c69f
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
 
 export function OrderProvider({ children }: { children: ReactNode }) {
+<<<<<<< HEAD
   const [orders, setOrders] = useState<Order[]>(INITIAL_ORDERS);
   const [customers, setCustomers] = useState<Customer[]>(INITIAL_CUSTOMERS);
   const [coupons, setCoupons] = useState<Coupon[]>(INITIAL_COUPONS);
@@ -62,6 +81,19 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       if (savedCoupons) setCoupons(JSON.parse(savedCoupons));
     } catch (e) {
       console.error("Erro ao carregar dados do localStorage", e);
+=======
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("shopnova_orders");
+    if (saved) {
+      try {
+        setOrders(JSON.parse(saved));
+      } catch (e) {
+        console.error("Failed to parse orders", e);
+      }
+>>>>>>> 2e3ba7d78f21a50404ac62478f1cd891a842c69f
     }
     setIsHydrated(true);
   }, []);
@@ -72,6 +104,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     }
   }, [orders, isHydrated]);
 
+<<<<<<< HEAD
   useEffect(() => {
     if (isHydrated) {
       localStorage.setItem("shopnova_customers", JSON.stringify(customers));
@@ -177,6 +210,20 @@ export function OrderProvider({ children }: { children: ReactNode }) {
         deleteCoupon,
       }}
     >
+=======
+  const addOrder = (items: OrderItem[], total: number) => {
+    const newOrder: Order = {
+      id: crypto.randomUUID(),
+      date: new Date().toISOString(),
+      items,
+      total,
+    };
+    setOrders((prev) => [...prev, newOrder]);
+  };
+
+  return (
+    <OrderContext.Provider value={{ orders, addOrder }}>
+>>>>>>> 2e3ba7d78f21a50404ac62478f1cd891a842c69f
       {children}
     </OrderContext.Provider>
   );
@@ -184,7 +231,11 @@ export function OrderProvider({ children }: { children: ReactNode }) {
 
 export function useOrders() {
   const context = useContext(OrderContext);
+<<<<<<< HEAD
   if (!context) {
+=======
+  if (context === undefined) {
+>>>>>>> 2e3ba7d78f21a50404ac62478f1cd891a842c69f
     throw new Error("useOrders must be used within an OrderProvider");
   }
   return context;

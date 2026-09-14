@@ -7,6 +7,7 @@ import { useState } from "react";
 
 export default function CheckoutPage() {
   const { items, total, clearCart } = useCart();
+<<<<<<< HEAD
   const { createOrder } = useOrders();
   const [createdOrderCode, setCreatedOrderCode] = useState<string | null>(null);
 
@@ -41,6 +42,14 @@ export default function CheckoutPage() {
       paymentMethod: customerData.paymentMethod,
     });
 
+=======
+  const { addOrder } = useOrders();
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleCheckout = (e: React.FormEvent) => {
+    e.preventDefault();
+    addOrder(items, total);
+>>>>>>> 2e3ba7d78f21a50404ac62478f1cd891a842c69f
     clearCart();
     setCreatedOrderCode(order.code);
   };
@@ -100,9 +109,15 @@ export default function CheckoutPage() {
         Finalizar Compra
       </h1>
 
+<<<<<<< HEAD
       <div className="grid-auto" style={{ gridTemplateColumns: "1fr 400px", gap: "32px", alignItems: "start" }}>
         <form onSubmit={handleCheckout} className="card animate-fade-in" style={{ padding: "32px", display: "flex", flexDirection: "column", gap: "20px" }}>
           <h2 style={{ fontSize: "1.4rem" }}>Identificação do Comprador</h2>
+=======
+      <div className="grid-responsive-2 checkout-layout" style={{ alignItems: "start" }}>
+        <form onSubmit={handleCheckout} className="card animate-fade-in" style={{ padding: "32px", display: "flex", flexDirection: "column", gap: "24px" }}>
+          <h2 style={{ fontSize: "1.5rem" }}>Dados de Pagamento (Simulação)</h2>
+>>>>>>> 2e3ba7d78f21a50404ac62478f1cd891a842c69f
           
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>

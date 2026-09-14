@@ -2,7 +2,121 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+<<<<<<< HEAD
 import { useAuth } from "@/context/AuthContext";
+=======
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    background: "linear-gradient(135deg, #0f1115 0%, #1a1d24 100%)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontFamily: "'Outfit', 'Segoe UI', sans-serif",
+    padding: "20px",
+  } as React.CSSProperties,
+
+  card: {
+    // Moved to .auth-card in globals.css
+  } as React.CSSProperties,
+
+  leftPanel: (isLogin: boolean) => ({
+    // Other properties moved to .auth-left
+    left: isLogin ? "0%" : "58%",
+  } as React.CSSProperties),
+
+  rightPanel: (isLogin: boolean) => ({
+    // Other properties moved to .auth-right
+    left: isLogin ? "42%" : "0%",
+  } as React.CSSProperties),
+
+  icon: {
+    fontSize: "4.5rem",
+    marginBottom: "20px",
+  } as React.CSSProperties,
+
+  leftTitle: {
+    fontSize: "1.8rem",
+    fontWeight: 700,
+    marginBottom: "14px",
+    color: "white",
+  } as React.CSSProperties,
+
+  leftText: {
+    fontSize: "0.95rem",
+    opacity: 0.9,
+    marginBottom: "36px",
+    lineHeight: 1.6,
+    color: "white",
+  } as React.CSSProperties,
+
+  switchBtn: {
+    background: "transparent",
+    border: "2px solid white",
+    color: "white",
+    padding: "10px 36px",
+    borderRadius: "9999px",
+    fontWeight: 700,
+    fontSize: "0.9rem",
+    cursor: "pointer",
+    letterSpacing: "0.5px",
+    fontFamily: "inherit",
+  } as React.CSSProperties,
+
+  formTitle: {
+    fontSize: "1.7rem",
+    fontWeight: 800,
+    marginBottom: "32px",
+    textAlign: "center",
+    background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    backgroundClip: "text",
+    letterSpacing: "0.5px",
+  } as React.CSSProperties,
+
+  inputRow: {
+    display: "flex",
+    alignItems: "center",
+    background: "#252a33",
+    borderRadius: "12px",
+    padding: "13px 16px",
+    border: "1px solid rgba(255,255,255,0.08)",
+    marginBottom: "16px",
+  } as React.CSSProperties,
+
+  inputIcon: {
+    marginRight: "12px",
+    fontSize: "1.1rem",
+  } as React.CSSProperties,
+
+  input: {
+    background: "transparent",
+    border: "none",
+    color: "#f0f2f5",
+    width: "100%",
+    outline: "none",
+    fontSize: "0.95rem",
+    fontFamily: "inherit",
+  } as React.CSSProperties,
+
+  submitBtn: {
+    marginTop: "10px",
+    padding: "14px",
+    width: "100%",
+    background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+    color: "white",
+    border: "none",
+    borderRadius: "9999px",
+    fontWeight: 700,
+    fontSize: "1rem",
+    cursor: "pointer",
+    fontFamily: "inherit",
+    letterSpacing: "1px",
+  } as React.CSSProperties,
+};
+>>>>>>> 2e3ba7d78f21a50404ac62478f1cd891a842c69f
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -34,13 +148,19 @@ export default function AuthPage() {
         rel="stylesheet"
       />
       <div style={styles.page}>
-        <div style={styles.card}>
+        <div className="auth-card">
 
+<<<<<<< HEAD
           {/* Painel Esquerdo - Temático e Dinâmico */}
           <div style={styles.leftPanel(isLogin)}>
             <div style={styles.icon}>
               {role === "vendedor" ? "📊" : "🛍️"}
             </div>
+=======
+          {/* Painel Esquerdo - Temático */}
+          <div className="auth-left" style={styles.leftPanel(isLogin)}>
+            <div style={styles.icon}>🛍️</div>
+>>>>>>> 2e3ba7d78f21a50404ac62478f1cd891a842c69f
             <h2 style={styles.leftTitle}>
               {role === "vendedor"
                 ? isLogin
@@ -76,7 +196,7 @@ export default function AuthPage() {
           </div>
 
           {/* Painel Direito - Formulário */}
-          <div style={styles.rightPanel(isLogin)}>
+          <div className="auth-right" style={styles.rightPanel(isLogin)}>
             <h2 style={styles.formTitle}>
               {isLogin ? "ACESSE SUA CONTA" : "CRIE SUA CONTA"}
             </h2>
